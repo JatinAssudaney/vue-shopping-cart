@@ -3,11 +3,11 @@
     <div class="flex justify-between items-center relative">
       <div class="flex gap-x-4">
         <label for="max-price" class="text-2xl">Max Price (${{ max }})</label>
-        <div class="bg-green-700 rounded-full py-0.5 px-2">
+        <!-- <div class="bg-green-700 rounded-full py-0.5 px-2">
           <span class="align-middle text-white text-sm"
             >results: {{ filteredProducts.length }}</span
           >
-        </div>
+        </div> -->
       </div>
       <div v-if="cart.length" class="absolute top-0 right-0">
         <div class="flex flex-col items-end">
@@ -45,12 +45,41 @@
         </div>
       </div>
     </div>
-    <input v-model.number="max" type="range" class="form-range" min="0" max="130" />
+    <input value="max" @change="max" type="range" class="form-range" min="0" max="130" />
   </nav>
 </template>
 <script>
+import CurrencyComponent from './CurrencyComponent.vue'
 export default {
-  props: ''
+  data() {
+    return {
+      displayCart: false
+    }
+  },
+  props: ['cart', 'max'],
+  components: { CurrencyComponent },
+  computed: {
+    cartTotal() {
+      return this.cart.reduce((inc, item) => Number(item.price) + inc, 0)
+    }
+  }
 }
 </script>
-<style lang=""></style>
+
+<style>
+.dropdown-clip {
+  overflow: hidden;
+}
+
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition: all 0.5s ease-in-out;
+  transform: auto;
+}
+
+.dropdown-enter-from,
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-300px);
+}
+</style>

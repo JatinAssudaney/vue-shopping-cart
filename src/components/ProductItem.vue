@@ -12,7 +12,10 @@
           ><CurrencyComponent :amt="item.price"></CurrencyComponent
         ></span>
       </div>
-      <button @click="$emit('addToCart', item)" class="text-white bg-green-700 px-2 py-1 rounded">
+      <button
+        @click="$parent.$parent.$emit('addToCart', item)"
+        class="text-white bg-green-700 px-2 py-1 rounded"
+      >
         Add to Cart
       </button>
     </div>
